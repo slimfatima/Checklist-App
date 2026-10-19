@@ -1,0 +1,181 @@
+/* Pre-submission curation checklist: HTML and CSS only, no JavaScript.
+   Stage and overall completion are driven by the :has() selector. */
+
+:root {
+  --paper: #f2f5f3;
+  --surface: #ffffff;
+  --ink: #15231f;
+  --muted: #566661;
+  --line: #cdd7d3;
+  --rail: #cdd7d3;
+  --agar: #1d6b58;
+  --agar-soft: #dcebe5;
+  --focus: #b4690e;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1a17;
+    --surface: #16251f;
+    --ink: #e6efeb;
+    --muted: #9db0a9;
+    --line: #2d4139;
+    --rail: #2d4139;
+    --agar: #5fc2a6;
+    --agar-soft: #1c3a30;
+    --focus: #f0b458;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 1rem/1.55 var(--sans);
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font: 600 clamp(1.7rem, 5vw, 2.3rem)/1.15 var(--serif);
+  letter-spacing: -0.01em;
+}
+
+.intro p { margin: 0 0 1.5rem; color: var(--muted); max-width: 34rem; }
+
+.study { display: block; margin-bottom: 2rem; }
+.study span { display: block; font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem; }
+.study input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* Stages */
+.stage {
+  margin: 0 0 1.25rem;
+  padding: 0 0 0.75rem 1.25rem;
+  min-width: 0;
+  border: 0;
+  border-left: 4px solid var(--rail);
+  transition: border-color 0.2s;
+}
+
+.stage legend {
+  float: left;            /* keeps the legend inside the padded box */
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+.stage legend + * { clear: both; }
+
+.stage-name { font: 600 1.2rem/1.3 var(--serif); }
+
+.status { font-size: 0.875rem; color: var(--muted); }
+.status .done { display: none; color: var(--agar); font-weight: 600; }
+
+.hint { margin: 0.25rem 0 0.75rem; color: var(--muted); font-size: 0.9375rem; }
+
+/* A stage is complete when it has no unchecked box left */
+.stage:not(:has(input:not(:checked))) { border-left-color: var(--agar); }
+.stage:not(:has(input:not(:checked))) .status .open { display: none; }
+.stage:not(:has(input:not(:checked))) .status .done { display: inline; }
+
+/* Items */
+.item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.5rem;
+  margin-left: -0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.item:hover { background: var(--agar-soft); }
+
+.item input {
+  appearance: none;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0.1rem 0 0;
+  display: grid;
+  place-content: center;
+  background: var(--surface);
+  border: 2px solid var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.item input::after {
+  content: "";
+  width: 0.35rem;
+  height: 0.7rem;
+  border: solid var(--surface);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+  opacity: 0;
+}
+.item input:checked { background: var(--agar); border-color: var(--agar); }
+.item input:checked::after { opacity: 1; }
+.item input:checked + span { color: var(--muted); }
+
+:is(.item input, .study input, button, a):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Overall result */
+.ready {
+  display: none;
+  margin: 1.5rem 0 0;
+  padding: 0.9rem 1rem;
+  background: var(--agar-soft);
+  border-left: 4px solid var(--agar);
+  border-radius: 0 6px 6px 0;
+  font-weight: 600;
+}
+#checklist:not(:has(input:not(:checked))) .ready { display: block; }
+
+.actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+button {
+  padding: 0.6rem 1rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--agar); }
+
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+footer a { color: var(--agar); }
+
+@media (prefers-reduced-motion: reduce) {
+  .stage { transition: none; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .actions, .hint { display: none; }
+  .stage { break-inside: avoid; }
+  .item:hover { background: none; }
+}

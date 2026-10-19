@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pre-submission curation checklist</title>
+  <meta name="description" content="A pure HTML and CSS checklist for checking a curated study before asking for review.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <h1>Pre-submission curation checklist</h1>
+      <p>Work through the four stages for each study before you ask a reviewer for feedback. An unchecked item doesn't mean the data is wrong. It means the entry still needs attention.</p>
+      <label class="study">
+        <span>Study</span>
+        <input type="text" name="study" placeholder="Paper title or PMID" autocomplete="off">
+      </label>
+    </header>
+
+    <form id="checklist">
+
+      <fieldset class="stage">
+        <legend>
+          <span class="stage-name">1. Verify the study metadata</span>
+          <span class="status"><span class="open">In progress</span><span class="done">Complete</span></span>
+        </legend>
+        <p class="hint">Check the foundation of the record before looking at any signature.</p>
+        <label class="item"><input type="checkbox"><span>Title, DOI and PubMed ID match the paper</span></label>
+        <label class="item"><input type="checkbox"><span>Authors, journal and publication year are correct</span></label>
+        <label class="item"><input type="checkbox"><span>Host species, body site and other required fields are filled in</span></label>
+        <label class="item"><input type="checkbox"><span>The study isn't already in the database</span></label>
+      </fieldset>
+
+      <fieldset class="stage">
+        <legend>
+          <span class="stage-name">2. Validate the experimental design</span>
+          <span class="status"><span class="open">In progress</span><span class="done">Complete</span></span>
+        </legend>
+        <p class="hint">Make sure each experiment keeps the meaning of what the researchers compared.</p>
+        <label class="item"><input type="checkbox"><span>Each experiment matches the comparison the paper reports</span></label>
+        <label class="item"><input type="checkbox"><span>Group names and descriptions are consistent with the paper</span></label>
+        <label class="item"><input type="checkbox"><span>Exposures and experimental conditions are clearly distinguished</span></label>
+        <label class="item"><input type="checkbox"><span>Statistical methods and significance criteria match the reported evidence</span></label>
+        <label class="item"><input type="checkbox"><span>Another curator could understand each experiment without guessing</span></label>
+      </fieldset>
+
+      <fieldset class="stage">
+        <legend>
+          <span class="stage-name">3. Trace every signature to its evidence</span>
+          <span class="status"><span class="open">In progress</span><span class="done">Complete</span></span>
+        </legend>
+        <p class="hint">If you can't trace an entry back to the paper, investigate before you submit.</p>
+        <label class="item"><input type="checkbox"><span>Taxon and taxonomic rank are correct (verified in NCBI Taxonomy)</span></label>
+        <label class="item"><input type="checkbox"><span>Abundance direction matches the reported result</span></label>
+        <label class="item"><input type="checkbox"><span>Statistical significance is recorded as reported</span></label>
+        <label class="item"><input type="checkbox"><span>Each signature points to a supporting figure, table or supplementary result</span></label>
+        <label class="item"><input type="checkbox"><span>Growth, diversity and other non-differential-abundance results follow the curation policy</span></label>
+      </fieldset>
+
+      <fieldset class="stage">
+        <legend>
+          <span class="stage-name">4. Review before requesting feedback</span>
+          <span class="status"><span class="open">In progress</span><span class="done">Complete</span></span>
+        </legend>
+        <p class="hint">Read metadata, groups, signatures and evidence as one connected whole.</p>
+        <label class="item"><input type="checkbox"><span>No missing fields or duplicate entries</span></label>
+        <label class="item"><input type="checkbox"><span>Group references are consistent across experiments and signatures</span></label>
+        <label class="item"><input type="checkbox"><span>Unresolved questions are written down for the reviewer</span></label>
+      </fieldset>
+
+      <p class="ready" role="status">All stages complete. This study is ready for review.</p>
+
+      <div class="actions">
+        <button type="reset">Clear checklist</button>
+        <button type="button" onclick="window.print()">Print</button>
+      </div>
+    </form>
+
+    <footer>
+      <p>Unofficial helper based on the <a href="https://bugsigdb.org/Curation_Policy">BugSigDB Curation Policy</a>. It supports scientific judgment and peer review; it doesn't replace them. Open source under the MIT License.</p>
+    </footer>
+  </main>
+</body>
+</html>
